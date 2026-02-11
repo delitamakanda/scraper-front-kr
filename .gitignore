@@ -49,3 +49,6 @@ dist-ssr/
 
 # TanStack specific
 .tanstack/
+
+coverage/
+.vitest/
