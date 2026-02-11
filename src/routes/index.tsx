@@ -13,10 +13,10 @@ export const Route = createFileRoute('/')({
   component: RouteComponent,
 })
 
-function RouteComponent() {
+export function RouteComponent() {
     const [selectedBrand, handleSelectedBrand] = React.useState(brands[0]);
   return (
-    <Stack alignItems="center">
+    <Stack alignItems="center" role="main">
         <BrandSelector selectedBrand={selectedBrand} onChange={(brand) => handleSelectedBrand(brand)} />
       <Typography variant="h1" marginBlockEnd={4}>
         Hello world!
