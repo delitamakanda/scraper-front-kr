@@ -15,24 +15,3 @@ vi.stubGlobal('import', () => ({
         }
     }
 }))
-
-vi.mock('@tanstack/react-router', async () => {
-    const actualRouter = await vi.importActual('@tanstack/react-router')
-    return {
-        ...actualRouter,
-        useRouter: () => ({
-            isServer: false,
-            state:{
-                location: {
-                    pathname: '/',
-                }
-            },
-        }),
-        useRouterState: () => ({
-            location: {
-                pathname: '/',
-            }
-        })
-
-    }
-})
