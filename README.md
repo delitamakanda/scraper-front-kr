@@ -1,4 +1,5 @@
 # TanStack Start - Material UI Example
+[![Scraper front KR CI](https://github.com/delitamakanda/scraper-front-kr/actions/workflows/node.js.yml/badge.svg?branch=main&event=push)](https://github.com/delitamakanda/scraper-front-kr/actions/workflows/node.js.yml)
 
 A TanStack Start example demonstrating integration with Material UI (MUI).
 
