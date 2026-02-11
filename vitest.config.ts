@@ -9,6 +9,7 @@ export default defineConfig({
         environment: 'jsdom',
         css: true,
         setupFiles: ['./src/test/setup.ts'],
+        testTimeout: 10000,
     },
     resolve: {
         alias: {

@@ -7,7 +7,7 @@ import { RouterProvider, createMemoryHistory, createRootRoute, createRoute, crea
 describe('Index Route', () => {
     it('should render the Index Page', () => {
         const rootRoute = createRootRoute({
-            component: () => <RouteComponent />
+            component: RouteComponent
         })
         const router = createRouter({
             routeTree: rootRoute,
