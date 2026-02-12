@@ -36,6 +36,8 @@ FROM base
 
 ENV NODE_ENV=production
 
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 RUN mkdir /app
 WORKDIR /app
 
@@ -45,4 +47,7 @@ COPY --from=build /app/dist /app/dist
 COPY --from=build /app/public /app/public
 ADD . .
 
+EXPOSE 8080
+
+# Run the server
 CMD ["npm", "run", "start"]
