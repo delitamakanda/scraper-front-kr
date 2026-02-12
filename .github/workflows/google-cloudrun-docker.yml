@@ -36,7 +36,7 @@ on:
       - release/*
 
 env:
-  PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update to your Google Cloud project ID
+  PROJECT_ID: 'koreanfashion-42b7d'
   REGION: ${{ vars.REGION }} # TODO: update to your region
   SERVICE: ${{ vars.SERVICE }} # TODO: update to your service name
   WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }} # TODO: update to your workload identity provider
