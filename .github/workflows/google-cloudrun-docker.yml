@@ -44,6 +44,7 @@ env:
 jobs:
   deploy:
     runs-on: 'ubuntu-latest'
+    environment: scraper-front-kr
 
     permissions:
       contents: 'read'
