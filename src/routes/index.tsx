@@ -16,14 +16,12 @@ export const Route = createFileRoute('/')({
 export function RouteComponent() {
     const [selectedBrand, handleSelectedBrand] = React.useState(brands[0]);
   return (
-    <main role="main">
-      <Stack alignItems="center" role="main">
-          <BrandSelector selectedBrand={selectedBrand} onChange={(brand) => handleSelectedBrand(brand)} />
-        <Typography variant="h1" marginBlockEnd={4}>
-          Hello world!
-        </Typography>
-        <Counter />
-      </Stack>
-    </main>
+    <Stack alignItems="center" role="main">
+        <BrandSelector selectedBrand={selectedBrand} onChange={(brand) => handleSelectedBrand(brand)} />
+      <Typography variant="h1" marginBlockEnd={4}>
+        Hello world!
+      </Typography>
+      <Counter />
+    </Stack>
   )
 }
