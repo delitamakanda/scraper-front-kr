@@ -17,7 +17,7 @@ export function RouteComponent() {
     const [selectedBrand, handleSelectedBrand] = React.useState(brands[0]);
   return (
     <main role="main">
-      <Stack alignItems="center" role="main">
+      <Stack alignItems="center">
           <BrandSelector selectedBrand={selectedBrand} onChange={(brand) => handleSelectedBrand(brand)} />
         <Typography variant="h1" marginBlockEnd={4}>
           Hello world!
