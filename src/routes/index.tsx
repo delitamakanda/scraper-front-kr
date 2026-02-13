@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Stack, Typography } from '@mui/material'
+import { Stack } from '@mui/material'
 import z from 'zod'
-import { Counter } from '~/components/Counter'
 import { BrandSelector } from '~/components/core/ui/Selector/Selector'
 import {brands} from "~/components/core/ui/Selector/helper";
 import React from "react";
 import {CookieBanner} from "~/components/cookieBanner/CookieBanner";
+import {ModalNewsletter} from "~/components/modalNewsletter/ModalNewsletter";
 
 export const Route = createFileRoute('/')({
   validateSearch: z.object({
@@ -19,12 +19,9 @@ export function RouteComponent() {
   return (
     <main role="main">
       <Stack alignItems="center">
-          <BrandSelector selectedBrand={selectedBrand} onChange={(brand) => handleSelectedBrand(brand)} />
-        <Typography variant="h1" marginBlockEnd={4}>
-          Hello world!
-        </Typography>
-        <Counter />
           <CookieBanner />
+          <ModalNewsletter />
+          <BrandSelector selectedBrand={selectedBrand} onChange={(brand) => handleSelectedBrand(brand)} />
       </Stack>
     </main>
   )
