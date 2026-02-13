@@ -5,6 +5,7 @@ import { Counter } from '~/components/Counter'
 import { BrandSelector } from '~/components/core/ui/Selector/Selector'
 import {brands} from "~/components/core/ui/Selector/helper";
 import React from "react";
+import {CookieBanner} from "~/components/cookieBanner/CookieBanner";
 
 export const Route = createFileRoute('/')({
   validateSearch: z.object({
@@ -23,6 +24,7 @@ export function RouteComponent() {
           Hello world!
         </Typography>
         <Counter />
+          <CookieBanner />
       </Stack>
     </main>
   )
