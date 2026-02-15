@@ -2,16 +2,15 @@ import React, {useTransition, useEffect, useState} from "react";
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
 import Slide from "@mui/material/Slide";
 import Box from '@mui/material/Box'
 import Loader from '@mui/material/CircularProgress'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import Alert from '@mui/material/Alert'
 import { TransitionProps } from "@mui/material/transitions";
-// @tanstack/query
-import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { userMailingURL } from "~/constants";
 
 const Transition = React.forwardRef(function Transition(
@@ -23,17 +22,37 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export function ModalNewsletter() {
-    const [isPending, startTransition] = useTransition();
+    const [_, startTransition] = useTransition();
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
-    const [error, setError] = useState<unknown>(null);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
 
     useEffect(() => {
         setOpen(true)
     }, []);
+
+    const { mutate, isSuccess, error, isPending } = useMutation({
+        mutationFn: async (emailData: { email: string }) => {
+            const response = await fetch(userMailingURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: emailData.email }),
+            })
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        },
+        onSuccess: () => {
+            setEmail('');
+            setTimeout(() => setOpen(false), 300);
+        },
+        onError: (err) => {
+            console.error('Error:', err)
+        },
+    })
 
     const handleClose = () => {
         startTransition(() => {
@@ -43,24 +62,7 @@ export function ModalNewsletter() {
 
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setError(null);
-        setIsSuccess(false);
-
-        try {
-            await fetch(userMailingURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-            setIsSuccess(true);
-        } catch (error) {
-            setError(error);
-        } finally {
-            setIsSubmitting(false);
-        }
+        mutate({ email })
     }
 
     return (
@@ -75,6 +77,8 @@ export function ModalNewsletter() {
                     <DialogContentText>
                         Receive new fashion trends in your mailbox. You can unsubscribe at any moment. Press ESC key or click the button below to close
                     </DialogContentText>
+                    {isSuccess && <Alert severity="success">Subscribed successfully!</Alert>}
+                    {error && <Alert severity="error">Failed to subscribe. Please try again.</Alert>}
                     <Box component="form" sx={{ '& .MuiTextField-root':{m: 1, width: '25ch'} }} autoComplete="off" onSubmit={handleSubmit}>
                         <div>
                             <TextField
@@ -86,7 +90,7 @@ export function ModalNewsletter() {
                         </div>
                         <div>
                             <Button type="submit">
-                                {isSubmitting? <Loader /> : 'Subscribe'}
+                                {isPending ? <Loader /> : 'Subscribe'}
                             </Button>
                         </div>
                     </Box>
