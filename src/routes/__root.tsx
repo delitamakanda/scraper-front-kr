@@ -6,6 +6,7 @@ import {
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CacheProvider } from '@emotion/react'
 import { Container, CssBaseline, ThemeProvider } from '@mui/material'
 import createCache from '@emotion/cache'
@@ -13,6 +14,15 @@ import fontsourceVariableRobotoCss from '@fontsource-variable/roboto?url'
 import React from 'react'
 import { theme } from '~/setup/theme'
 import { Header } from '~/components/Header'
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+          staleTime: 1000 * 60 * 5,
+            gcTime: 1000 * 60 * 10,
+        },
+      },
+})
 
 export const Route = createRootRoute({
   head: () => ({
@@ -33,12 +43,14 @@ function Providers({ children }: { children: React.ReactNode }) {
   const emotionCache = createCache({ key: 'css' })
 
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </CacheProvider>
+      <QueryClientProvider client={queryClient}>
+        <CacheProvider value={emotionCache}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
+        </CacheProvider>
+      </QueryClientProvider>
   )
 }
 
