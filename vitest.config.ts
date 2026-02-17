@@ -4,6 +4,9 @@ import path from 'path'
 
 export default defineConfig({
     plugins: [viteReact()],
+    ssr: {
+        noExternal: ['@mui/*', '@testing-library/*'],
+    },
     test: {
         globals: true,
         environment: 'jsdom',
