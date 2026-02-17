@@ -10,11 +10,12 @@ export function useProducts() {
         queryKey: ['products', page, searchValue],
         placeholderData: keepPreviousData,
         queryFn: async () => {
-            const params = new URLSearchParams({ page: String(page) })
+            const params = new URLSearchParams()
 
             if (searchValue) {
                 params.append('q', searchValue)
             }
+            params.append('page', String(page)  )
 
             const url = `${productsListUrl}?${params.toString()}`
             const res = await fetch(url);
