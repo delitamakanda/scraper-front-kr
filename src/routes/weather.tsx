@@ -44,7 +44,7 @@ function RouteComponent() {
                 <CardContent sx={{ flexGrow: 1}}>
                   <Typography variant="h6" component="h3" gutterBottom>{w.city}</Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', mb:2 }}>
-                    <img src={`http://openweathermap.org/img/wn/${w.icon}.png`}
+                    <img src={`https://openweathermap.org/img/wn/${w.icon}.png`}
                          alt={w.description} width={50} height={50}/>
                     <Typography variant="h5" sx={{ ml: 1}}>{w.temperature}°C</Typography>
                   </Box>
