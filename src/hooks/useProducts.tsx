@@ -12,6 +12,9 @@ export function useProducts() {
         queryFn: async () => {
             const url = searchValue ? `${productsListUrl}?page=${page}&q=${searchValue}` : productsListUrl;
             const res = await fetch(url);
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
             return await res.json();
         },
     });
