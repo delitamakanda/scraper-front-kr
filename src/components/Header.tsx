@@ -3,16 +3,17 @@ import { useLocation } from '@tanstack/react-router'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import React from "react";
+import { CustomLink } from '~/components/CustomLink';
 
 interface StyledCustomLinkProps {
     selected?: boolean;
     label?: string;
-    href?: string;
+    to: string;
 }
 
 function StyledCustomLink (props: StyledCustomLinkProps) {
     return (
-        <Tab label={props.label} href={props.href} component="a" aria-current={props.selected && 'page'} {...props} sx={{ textTransform: 'capitalize' }} />
+        <Tab label={props.label} component={CustomLink} aria-current={props.selected && 'page'} {...props} sx={{ textTransform: 'capitalize' }} />
     )
 }
 
@@ -41,10 +42,10 @@ export function Header() {
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'static', backgroundColor: 'white', zIndex: '99' }}>
       <Tabs value={getTabValue()}
       onChange={handleChange}>
-          <StyledCustomLink label="Index" href="/" />
-          <StyledCustomLink label="Favorites" href="/favorite-products" />
-          <StyledCustomLink label="About" href="/about" />
-          <StyledCustomLink label="Weather" href="/weather" />
+          <StyledCustomLink label="Index" to="/" />
+          <StyledCustomLink label="Favorites" to="/favorite-products" />
+          <StyledCustomLink label="About" to="/about" />
+          <StyledCustomLink label="Weather" to="/weather" />
       </Tabs>
     </Box>
   )
