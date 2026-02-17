@@ -40,7 +40,7 @@ function RouteComponent() {
         {error && <Alert severity="error">{error.message}</Alert>}
         <Grid2 container spacing={3}>
           {data?.map((w: WeaterData, _: number) => (
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column'}}>
+              <Card key={w.city.toLowerCase()} sx={{ height: '100%', display: 'flex', flexDirection: 'column'}}>
                 <CardContent sx={{ flexGrow: 1}}>
                   <Typography variant="h6" component="h3" gutterBottom>{w.city}</Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', mb:2 }}>
