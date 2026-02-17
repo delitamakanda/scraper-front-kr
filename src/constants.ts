@@ -1,6 +1,6 @@
 const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
-export const endpoint = `${apiBaseURL}`;
+export const endpoint = `${apiBaseURL}/`;
 
 export const userMailingURL = `${endpoint}signup/`;
 export const weatherUrl = `${endpoint}weather/`;
