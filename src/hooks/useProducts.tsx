@@ -10,8 +10,19 @@ export function useProducts() {
         queryKey: ['products', page, searchValue],
         placeholderData: keepPreviousData,
         queryFn: async () => {
-            const url = searchValue ? `${productsListUrl}?page=${page}&q=${searchValue}` : productsListUrl;
+            const params = new URLSearchParams({ page: String(page) })
+
+            if (searchValue) {
+                params.append('q', searchValue)
+            }
+
+            const url = `${productsListUrl}?${params.toString()}`
             const res = await fetch(url);
+
+            if (!res.ok) {
+                throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`)
+            }
+
             return await res.json();
         },
     });
