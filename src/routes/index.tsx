@@ -12,12 +12,15 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import CardActionArea from '@mui/material/CardActionArea';
 import CircularProgress from '@mui/material/CircularProgress'
 import { useProducts } from '~/hooks/useProducts';
 import Alert from '@mui/material/Alert'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Pagination from "@mui/material/Pagination";
+import {ProductData} from "~/interfaces/products";
+import {useFavorites} from "~/hooks/useFavorites";
 
 export const Route = createFileRoute('/')({
   validateSearch: z.object({
@@ -26,25 +29,18 @@ export const Route = createFileRoute('/')({
   component: RouteComponent,
 })
 
-interface ProductData {
-    id: number;
-    name: string;
-    image_url: string;
-    available: boolean;
-    description: string;
-    external_link: string;
-    image: string;
-    is_liked: boolean;
-    next_item: {id: number; name: string} | null;
-    previous_item: {id: number, name:string } | null;
-    price: string;
-    source: string;
-    stock: number;
-}
-
 export function RouteComponent() {
     const [selectedBrand, handleSelectedBrand] = React.useState(brands[0]);
     const { isFetching, isError, error, products, hasNextPage, setSearchValue, page, setPage } = useProducts();
+    const { isProductFavorited, toggleFavoriteProduct } = useFavorites()
+
+    const onToggleFavorite = (event: React.MouseEvent<HTMLButtonElement>, product: Partial<ProductData>) => {
+        event.preventDefault();
+        if (!product.id) {
+            return;
+        }
+        toggleFavoriteProduct(product.id)
+    }
 
   return (
     <main role="main">
@@ -65,6 +61,7 @@ export function RouteComponent() {
                   {products.map((product: Partial<ProductData>, _: number) => (
                       <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={_}>
                       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column'}}>
+                          <CardActionArea component="a" href={product.external_link} target="_blank" rel="noreferrer" tabIndex={product.id}>
                           <CardMedia
                               component="img"
                               alt={product.name}
@@ -75,10 +72,11 @@ export function RouteComponent() {
                               <Typography variant="body2" color="text.secondary">
                                   {product.name}
                               </Typography>
-                              <IconButton size="small" color="primary">
-                                  {product.is_liked? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                              <IconButton size="small" color="primary" onClick={(event) => onToggleFavorite(event, product)}>
+                                  {product.is_liked || isProductFavorited(product.id)? <FavoriteIcon /> : <FavoriteBorderIcon />}
                               </IconButton>
                           </CardContent>
+                          </CardActionArea>
                       </Card>
                       </Grid2>
                   ))}
