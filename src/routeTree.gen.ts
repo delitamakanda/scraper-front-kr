@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WeatherRouteImport } from './routes/weather'
 import { Route as FavoriteProductsRouteImport } from './routes/favorite-products'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WeatherRoute = WeatherRouteImport.update({
@@ -29,6 +30,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/favorite-products': typeof FavoriteProductsRoute
   '/weather': typeof WeatherRoute
+  '/health': typeof HealthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/favorite-products': typeof FavoriteProductsRoute
   '/weather': typeof WeatherRoute
+  '/health': typeof HealthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/favorite-products': typeof FavoriteProductsRoute
   '/weather': typeof WeatherRoute
+  '/health': typeof HealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/favorite-products' | '/weather'
+  fullPaths: '/' | '/about' | '/favorite-products' | '/weather' | '/health'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/favorite-products' | '/weather'
-  id: '__root__' | '/' | '/about' | '/favorite-products' | '/weather'
+  to: '/' | '/about' | '/favorite-products' | '/weather' | '/health'
+  id: '__root__' | '/' | '/about' | '/favorite-products' | '/weather' | '/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   FavoriteProductsRoute: typeof FavoriteProductsRoute
   WeatherRoute: typeof WeatherRoute
+  HealthRoute: typeof HealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   FavoriteProductsRoute: FavoriteProductsRoute,
   WeatherRoute: WeatherRoute,
+  HealthRoute: HealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
