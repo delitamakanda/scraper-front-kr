@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent'
 interface HealthData {
   status: string
   timestamp: string
-  uptime: number
+  uptime?: number
 }
 
 export const Route = createFileRoute('/health')({
@@ -59,9 +59,11 @@ export function RouteComponent() {
             <Typography variant="body2" color="text.secondary">
               Timestamp: {new Date(data.timestamp).toLocaleString()}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Uptime: {Math.floor(data.uptime)}s
-            </Typography>
+            {data.uptime !== undefined && (
+              <Typography variant="body2" color="text.secondary">
+                Uptime: {Math.floor(data.uptime)}s
+              </Typography>
+            )}
           </CardContent>
         </Card>
       )}

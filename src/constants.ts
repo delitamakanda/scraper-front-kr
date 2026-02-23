@@ -9,6 +9,6 @@ export const favProductsListUrl = (productIds: string) => `${endpoint}products/?
 
 export const LIKE_PRODUCT_KEY = 'likedProducts';
 
-export const healthUrl = '/api/health/';
+export const healthUrl = `${endpoint}health/`;
 
 export const debounceTime = 300;
