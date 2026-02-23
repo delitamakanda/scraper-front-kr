@@ -29,6 +29,8 @@ export function Header() {
                return 2;
            case '/weather':
                return 3;
+           case '/health':
+               return 4;
            default:
                return 0;
        }
@@ -46,6 +48,7 @@ export function Header() {
           <StyledCustomLink label="Favorites" to="/favorite-products" />
           <StyledCustomLink label="About" to="/about" />
           <StyledCustomLink label="Weather" to="/weather" />
+          <StyledCustomLink label="Health" to="/health" />
       </Tabs>
     </Box>
   )

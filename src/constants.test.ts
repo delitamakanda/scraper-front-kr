@@ -5,6 +5,7 @@ import {
     weatherUrl,
     productsListUrl,
     favProductsListUrl,
+    healthUrl,
 
 } from "./constants"
 
@@ -28,6 +29,9 @@ describe('constants', () => {
         })
         it('should construct fav products list URL correctly when no productIds are provided', () => {
             expect(favProductsListUrl('')).toBe(endpoint + 'products/?id__in=');
+        })
+        it('should define healthUrl correctly', () => {
+            expect(healthUrl).toBe(endpoint + 'health/');
         })
     })
 })
